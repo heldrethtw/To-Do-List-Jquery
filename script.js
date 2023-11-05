@@ -3,10 +3,13 @@ $(document).ready(function() {
   function newItem() {
       var inputValue = $('#input').val().trim();
       if (inputValue !== '') {
-          var deleteButton = $('<span class="delete">X</span>');
-          deleteButton.append(document.createTextNode('')); // No need to add 'X' as textNode since we already have 'X' in the span
-          var listItem = $("<li>").text(inputValue).append(deleteButton);
+          // Create the list item with the delete button as a string
+          var listItem = '<li>' + inputValue + ' <span class="delete" style="display: inline;">X</span></li>';
+          
+          // Append the new list item to the list
           $('#list').append(listItem);
+          
+          // Clear the input field
           $('#input').val("");
       }
   }
