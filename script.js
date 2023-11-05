@@ -1,11 +1,12 @@
 $(document).ready(function() {
   // Function to add a new item
   function newItem() {
-      var inputValue = $('#input').val();
-      if (inputValue === '') {
-          alert("You must write something!");
-      } else {
-          $('#list').append("<li>" + inputValue + " <span class='delete'>X</span></li>");
+      var inputValue = $('#input').val().trim();
+      if (inputValue !== '') {
+          var deleteButton = $('<span class="delete">X</span>');
+          deleteButton.append(document.createTextNode('')); // No need to add 'X' as textNode since we already have 'X' in the span
+          var listItem = $("<li>").text(inputValue).append(deleteButton);
+          $('#list').append(listItem);
           $('#input').val("");
       }
   }
@@ -16,6 +17,7 @@ $(document).ready(function() {
   // Event listener for adding an item with the Enter key
   $("#input").on('keypress', function(e) {
       if (e.which === 13) {
+          e.preventDefault(); // Prevent the default action for Enter key
           newItem();
       }
   });
