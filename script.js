@@ -3,36 +3,31 @@ $(document).ready(function() {
   function addItem() {
       let inputValue = $('#input').val().trim();
       if (inputValue === '') {
-          alert("You must write something!");
-      } else {
-          // Create the list item
-          let li = $('<li></li>');
-          // Wrap the item text in a span and append to the list item
-          let itemText = $('<span class="item-text"></span>').text(inputValue);
-          li.append(itemText);
-          // Create the delete button with a margin-left inline style
-          let deleteButton = $('<span class="delete">X</span>').css('margin-left', '10px');
-          li.append(deleteButton);
-
-          // Append the list item to the list
-          $('#list').append(li);
-          // Clear the input field
-          $('#input').val('');
+          // Handle empty input without an alert if desired
+          return; // Exit the function early if no input
       }
-  }
+      // Create a list item with the input text and a delete button
+      let li = $('<li></li>');
+      li.append(document.createTextNode(inputValue));
+      let deleteButton = $('<span class="delete">X</span>');
+      li.append(deleteButton);
 
-  // Event listener for crossing out an item
-  $('#list').on('dblclick', 'li', function() {
-      // Toggle the .strike class on the item text only
-      $(this).children('.item-text').toggleClass('strike');
-  });
+      // Append the new list item to the list
+      $('#list').append(li);
 
-  // Event listener for deleting an item
-  $('#list').on('click', '.delete', function() {
-      $(this).parent().fadeOut('slow', function() {
-          $(this).remove();
+      // Clear the input field
+      $('#input').val('');
+
+      // Click event for the delete button
+      deleteButton.click(function() {
+          $(this).parent().remove();
       });
-  });
+
+      // Double-click event to toggle the strike-through
+      li.dblclick(function() {
+          $(this).toggleClass('strike');
+      });
+  }
 
   // Event listener for the 'Add' button
   $('#button').click(addItem);
