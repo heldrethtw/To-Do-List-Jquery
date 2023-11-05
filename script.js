@@ -1,37 +1,38 @@
-$(document).ready(function() {
-  // Function to add a new item
-  function newItem() {
-      var inputValue = $('#input').val();
-      if (inputValue === '') {
-          alert("You must write something!");
-      } else {
-          $('#list').append("<li>" + inputValue + " <span class='delete'>X</span></li>");
-          $('#input').val("");
-      }
+function newItem() {
+  // 1. Adding a new item to the list of items:
+  var inputValue = $('#input').val();
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    // Create the list item with text and append it to the list
+    var li = $('<li></li>').text(inputValue);
+    $('#list').append(li);
+    $('#input').val('');
+
+    // 2. Crossing out an item from the list of items:
+    li.dblclick(function() {
+      $(this).toggleClass("strike");
+    });
+
+    // 3. Adding the delete button "X":
+    var deleteButton = $('<button></button>').text('X').addClass('delete');
+    li.append(deleteButton);
+
+    // Event handler for the delete button
+    deleteButton.click(function() {
+      $(this).parent().remove();
+    });
   }
 
-  // Event listener for adding an item with the Add button
-  $('#button').click(newItem);
-
-  // Event listener for adding an item with the Enter key
-  $("#input").on('keypress', function(e) {
-      if (e.which === 13) {
-          newItem();
-      }
-  });
-
-  // Event listener for marking an item as complete
-  $('#list').on('dblclick', 'li', function() {
-      $(this).toggleClass('strike');
-  });
-
-  // Event listener for deleting an item
-  $('#list').on('click', '.delete', function() {
-      $(this).parent().fadeOut('slow', function() {
-          $(this).remove();
-      });
-  });
-
-  // Make the list sortable with drag and drop
+  // 4. Reordering the items:
   $('#list').sortable();
+}
+
+// Event listener for the Add button
+$('#button').click(newItem);
+
+// Prevent form submission and trigger adding new item
+$('form[name="toDoList"]').submit(function(e) {
+  e.preventDefault();
+  newItem();
 });
