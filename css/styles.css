@@ -49,10 +49,7 @@ li:hover{
  }
 
 .delete {
-  display: inline;
-  margin-left: 10px;
-  color: red;
-  cursor: pointer;
+	display: none;
 }
 
 li > crossOutButton {
@@ -62,6 +59,3 @@ li > crossOutButton {
 	color: #025f70;
 	font-weight: 800;
 }
-
-
-  
