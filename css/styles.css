@@ -60,17 +60,5 @@ li > crossOutButton {
 	font-weight: 800;
 }
 
-/* This styles the delete button */
-.delete {
-    float: right;
-    color: #025f70;
-    font-weight: 800;
-    background: none;
-    border: none;
-  }
-  
-  /* This styles the container with a slight glow effect */
-  .container {
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Adjust the color and size to your liking */
-  }
+
   
