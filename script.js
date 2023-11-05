@@ -5,13 +5,13 @@ $(document).ready(function() {
       if (inputValue === '') {
           alert("You must write something!"); // Or handle this silently as you prefer
       } else {
-          // Create the list item with text
-          let li = $('<li></li>').text(inputValue);
-          // Create the delete button
-          let deleteButton = $('<span class="delete">X</span>');
+          // Create the list item with text wrapped in a span
+          let textSpan = $('<span class="text"></span>').text(inputValue);
+          // Create the delete button with extra margin
+          let deleteButton = $('<span class="delete" style="margin-left:5px;">X</span>');
 
-          // Append the delete button to the list item
-          li.append(deleteButton);
+          // Create the list item and append the text span and delete button to it
+          let li = $('<li></li>').append(textSpan).append(deleteButton);
           // Append the list item to the list
           $('#list').append(li);
           // Clear the input field
@@ -21,7 +21,7 @@ $(document).ready(function() {
 
   // Function to cross out a list item
   function crossOut() {
-      $(this).toggleClass("strike");
+      $(this).children('.text').toggleClass("strike");
   }
 
   // Function to delete a list item
