@@ -3,15 +3,17 @@ $(document).ready(function() {
   function addItem() {
       let inputValue = $('#input').val().trim();
       if (inputValue === '') {
-          alert("You must write something!"); // Or handle this silently as you prefer
+          alert("You must write something!");
       } else {
-          // Create the list item with text wrapped in a span
-          let textSpan = $('<span class="text"></span>').text(inputValue);
-          // Create the delete button with extra margin
-          let deleteButton = $('<span class="delete" style="margin-left:5px;">X</span>');
+          // Create the list item
+          let li = $('<li></li>');
+          // Wrap the item text in a span and append to the list item
+          let itemText = $('<span class="item-text"></span>').text(inputValue);
+          li.append(itemText);
+          // Create the delete button with a margin-left inline style
+          let deleteButton = $('<span class="delete">X</span>').css('margin-left', '10px');
+          li.append(deleteButton);
 
-          // Create the list item and append the text span and delete button to it
-          let li = $('<li></li>').append(textSpan).append(deleteButton);
           // Append the list item to the list
           $('#list').append(li);
           // Clear the input field
@@ -19,17 +21,18 @@ $(document).ready(function() {
       }
   }
 
-  // Function to cross out a list item
-  function crossOut() {
-      $(this).children('.text').toggleClass("strike");
-  }
+  // Event listener for crossing out an item
+  $('#list').on('dblclick', 'li', function() {
+      // Toggle the .strike class on the item text only
+      $(this).children('.item-text').toggleClass('strike');
+  });
 
-  // Function to delete a list item
-  function deleteListItem() {
+  // Event listener for deleting an item
+  $('#list').on('click', '.delete', function() {
       $(this).parent().fadeOut('slow', function() {
           $(this).remove();
       });
-  }
+  });
 
   // Event listener for the 'Add' button
   $('#button').click(addItem);
@@ -41,12 +44,6 @@ $(document).ready(function() {
           addItem();
       }
   });
-
-  // Event delegation for crossing out an item on double-click
-  $('#list').on('dblclick', 'li', crossOut);
-
-  // Event delegation for deleting an item on click of the delete button
-  $('#list').on('click', '.delete', deleteListItem);
 
   // Make the list sortable
   $('#list').sortable();
